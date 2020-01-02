@@ -1,0 +1,55 @@
+<%- include("../partials/header") %>
+
+
+<div class="container">
+	<header class="jumbotron">
+		<div class="container w3-roboto">
+			<h1 class="w3-lobster text-center">
+				Let's save some money!
+			</h1>
+			<p>
+				Want to buy your dream product but don't want to loan or borrow money? You can set your goal and calculate the monthly savings you need to do in order to buy it and track your savings to reach the goal.
+			</p>
+			<p>
+				<a class="btn btn-primary btn-lg" href="/mydream/new"> Plan Your Dream! </a>
+			</p>
+		</div>
+	</header>
+	
+	<div class="row">
+		<% mydreams.forEach(function(mydream){ %>
+			<% if(mydream.author.id.equals(currentUser._id)){ %>
+  			<div class="col-sm-6 col-md-4 w3-center">
+				<div class="thumbnail w3-animate-opacity w3-border-gray w3-light-gray w3-hover-border-dark-gray">
+      				<div class="caption">
+	            		<div>
+        					<h3 class="w3-lobster"><%= mydream.name %></h3>
+                		</div>
+                		<div class="w3-roboto">
+                		<p>Price: <%= mydream.amount %> <br>
+							Time: <%= mydream.months %> Months <br>
+							Save: <%= mydream.amount/mydream.months %> Per Month <br>
+							Started Saving From: <%= mydream.date %>
+						</p>
+                		</div>
+        				<a href="/mydream/<%= mydream._id %>/edit" class="btn btn-warning btn-xs w3-hover-shadow" role="button">Edit Goal!</a>
+						<form id="delete-form" action="/mydream/<%= mydream._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-xs btn-success w3-hover-shadow">
+							Dream Fulfilled!
+						</button>
+						</form>
+						<form id="delete-form" action="/mydream/<%= mydream._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-xs btn-danger w3-hover-shadow">
+							Abandon my dream!
+						</button>
+						</form>
+      				</div>
+    			</div>
+  			</div>
+			<% } %>
+		<% }) %>
+	</div>
+</div>
+
+
+<%- include("../partials/footer") %>

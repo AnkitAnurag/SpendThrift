@@ -1,0 +1,46 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+	<div class="row">
+		<h1 style="text-align: center; color: #ffffff" class="w3-lobster">
+		Set your Goals!
+		</h1>
+		<div style="width: 30%; margin: 25px auto;">
+			<form action="/mydream" method="POST">
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Your Dream: 
+					</h3>
+					<input class="form-control" type="text" name="name" placeholder="your dream you need to save for">
+				</div>
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Goal Amount: 
+					</h3>
+					<input class="form-control" type="number" name="amount" placeholder="amount you want to save">
+				</div>
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Months to save: 
+					</h3>
+					<input class="form-control" type="number" name="months" placeholder="months you want to save money for">
+				</div>
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Started Saving From: 
+					</h3>
+					<input class="form-control" type="date" name="date">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary btn-block w3-lobster">
+						Submit!
+					</button>
+				</div>
+			</form>
+			<a href="/mydream">Go Back!</a>
+		</div>
+	</div>
+</div>
+
+
+<%- include("../partials/footer") %>

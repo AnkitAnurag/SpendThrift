@@ -1,0 +1,15 @@
+#delete-form {
+	display: inline;
+}
+
+.w3-lobster {
+  font-family: "Lobster", serif;
+}
+
+.w3-roboto {
+  font-family: "Roboto", serif;
+}
+
+html,body,h1,h2,h3,h4,h5,h6 {
+	font-family: "Roboto", sans-serif
+}

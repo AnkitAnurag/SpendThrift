@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SpendThrift</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="google-signin-client_id" content="273224268903-djksa5oceib61oemaj50tcioccfkescf.apps.googleusercontent.com">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Lobster|Roboto&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="/stylesheets/landing.css">
+		<script src="https://use.fontawesome.com/5decefa9b5.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+	</head>
+	<body>
+	
+	<div class="container">
+		<% if(error && error.length > 0){ %>
+		<div class="alert alert-danger" role="alert">
+			<%= error %>
+		</div>
+		<% } %>
+		<% if(success && success.length > 0){ %>
+		<div class="alert alert-success" role="alert">
+			<%= success %>
+		</div>
+		<% } %>
+	</div>
+		
+	
+	<div id="landing-header">
+ 		<h1 class="w3-lobster">Welcome to SpendThrift!</h1>
+		<a href="/login" class="btn btn-lg btn-success">Login To Continue!</a>
+		<h5>
+			<a href="/signup">New user? Sign Up Here!</a>
+		</h5>
+    </div>
+	
+	<ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+	
+	
+
+<%- include("partials/footer") %>

@@ -1,0 +1,43 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+	<div class="row">
+		<h1 style="text-align: center; color: #ffffff" class="w3-lobster">
+		Edit your Goal!
+		</h1>
+		<div style="width: 30%; margin: 25px auto;">
+			<form action="/mydream/<%= mydream._id %>?_method=PUT" method="POST">
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Your Dream: 
+					</h3>
+					<input class="form-control" type="text" name="mydream[name]" value="<%= mydream.name %>">
+				</div>
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Goal Amount: 
+					</h3>
+					<input class="form-control" type="number" name="mydream[amount]" value="<%= mydream.amount %>">
+				</div>
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Months to save: 
+					</h3>
+					<input class="form-control" type="number" name="mydream[months]" value="<%= mydream.months %>">
+				</div>
+				<div class="form-group">
+					<h3 style="color: #ffffff" class="w3-lobster">
+						Started Saving From: 
+					</h3>
+					<input class="form-control" type="date" name="mydream[date]" value="<%= mydream.date %>">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary btn-block w3-lobster">
+						Submit!
+					</button>
+				</div>
+			</form>
+			<a href="/mydream">Go Back!</a>
+		</div>
+	</div>
+</div>
