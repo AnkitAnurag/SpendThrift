@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
  
 var spendingSchema = new mongoose.Schema({
-	method: String,
 	name: String,
 	date: String,
    	amount: String,

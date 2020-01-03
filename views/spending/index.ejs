@@ -66,14 +66,14 @@
 
     <div id="form-box" method="POST">
       <form id="add-expense" action="/spending" method="POST">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <span>Type:</span>
           <select name="method">
             <option value="card">Card</option>
             <option value="cash">Cash</option>
             <option value="other">Other</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <span>Name:</span> <input type="text" name="name" placeholder="What did you spend on?">
@@ -96,7 +96,7 @@
 
     <table id="expenses" class="table">
       <tr>
-        <th>Method</th>
+        <!-- <th>Method</th> -->
         <th>Purpose</th>
         <th>Date</th>
         <th>Amount</th>
@@ -105,7 +105,7 @@
       <% spendings.forEach(function(spending) {  %>
 		<% if(spending.author.id.equals(currentUser._id)){ %>
       	<tr>
-	        <td> <%= spending.method %> </td>
+			
         	<td> <%= spending.name %> </td>
         	<td> <%= spending.date %> </td>
         	<td> Rs.&nbsp; <%= spending.amount %> </td>

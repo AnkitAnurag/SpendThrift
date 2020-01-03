@@ -71,7 +71,7 @@ table td {
 }
 
 #form-box {
-  width: 650px;
+  width: auto;
   margin: 30px auto;
   padding-left: 15px;
 }

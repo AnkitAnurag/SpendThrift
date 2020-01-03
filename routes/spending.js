@@ -16,7 +16,7 @@ router.get("/spending", middleware.isLoggedIn, function (req, res) {
 });
 
 router.post("/spending", middleware.isLoggedIn, function (req, res) {
-	var method = req.body.method;
+	// var method = req.body.method;
 	var name = req.body.name;
 	var date = req.body.date;
 	var amount = req.body.amount;
@@ -24,7 +24,7 @@ router.post("/spending", middleware.isLoggedIn, function (req, res) {
 		id: req.user._id,
 		username: req.user.username
 	};
-	var newspending = { method: method, name: name, date: date, amount: amount, author:author }
+	var newspending = { name: name, date: date, amount: amount, author:author }
 	Spending.create(newspending, function (err, newlyCreated) {
 		if (err) {
 			res.redirect("/spending");
