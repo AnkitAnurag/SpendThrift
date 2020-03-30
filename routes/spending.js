@@ -40,17 +40,6 @@ router.post("/spending", middleware.isLoggedIn, function (req, res) {
 
 //New Routes for Spending
 
-router.get('/spending/daywiseanalysis',function(req,res){
-	Spending.find({}, function (err, allSpendings) {
-		if (err) {
-			console.log(err);
-		}
-		else {
-			res.render("spending/daywise", { spendings: allSpendings });
-		}
-	});
-});
-
 router.get('/spending/monthwiseanalysis',function(req,res){
 	Spending.find({month:00}, function (err, allSpendings) {
 		if (err) {
@@ -70,6 +59,17 @@ router.post('/spending/monthwiseanalysis',function(req,res){
 		}
 		else {
 			res.render("spending/monthwise", { spendings: allSpendings });
+		}
+	});
+});
+
+router.get('/spending/todaysexpense',function(req,res){
+	Spending.find({}, function (err, allSpendings) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			res.render("spending/todaysexpense", { spendings: allSpendings });
 		}
 	});
 });

@@ -5,12 +5,9 @@
 		<a href="/spending" style="float: left;"><button id="back"><i class="fa fa-arrow-circle-left"></i> Go Back</button></a>
         <br>
         <br>
-
-	<% var count=0; %>
-    <% var m = new Date().getMonth()+1; %>
-    <% var months = ["January","February","March","April","May","June","July","August","September","October","November","December"]; %>
     
-	<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for <%= months[m-1] %></h4>
+    <h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Today's Expense(s)</h4>
+	
 
 	<table id="expenses" class="table">
       <tr>
@@ -21,14 +18,21 @@
         <th>Options</th>
       </tr>
 	  
-	  <% var total=0; %>
-      <% var d = new Date().getFullYear(); %>
+      <% var total=0; %>
+      <% var count=0; %>
+      <% var m = new Date().getMonth()+1; %>
+      <% var d = new Date().getDate(); %>
+      <% var y = new Date().getFullYear(); %>
       
+
+
       <% spendings.forEach(function(spending) {  %>
 		<% if(spending.author.id.equals(currentUser._id)){ %>
-            <% if(spending.year == d ){ %>
+            <% if(spending.year == y ){ %>
                 <% var temp = spending.month; %>
                 <% if(temp == m){ %>
+                    <% var tempd = spending.day; %>
+                    <% if(tempd == d){ %>
 			<% total+=spending.amount; %>
       	<tr>
           <td></td>
@@ -42,14 +46,16 @@
               </form>
           </td>
       	</tr>
-      <% }}}}); %>
-	</table>
-	<% spendings.forEach(function(spending) {  %>
-            <% if(spending.year == d ){ %>
-                <% var temp = spending.month; %>
+      <% }}}}}); %>
+    </table>
+    <% spendings.forEach(function(spending) {  %>
+        <% if(spending.year == y ){ %>
+            <% var temp = spending.month; %>
                 <% if(temp == m){ %>
-                    <% count++; }}}); %>
-                    <% if(count!=0){ %>
+                    <% var tempd = spending.day; %>
+                    <% if(tempd == d){ %>
+                        <% count++; }}}}); %>
+        <% if(count!=0){ %>
 			    <hr>
 			    <h4 class="w3-robot" style="font-size: 30px; text-align: right; color: black;">Total Expenditure: Rs.&nbsp;<%= total %></h4>
     			<hr>
