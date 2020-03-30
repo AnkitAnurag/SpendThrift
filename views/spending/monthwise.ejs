@@ -1,0 +1,103 @@
+<%- include("../partials/headerspending") %>
+
+<div class="container w3-roboto">
+	<div class="jumbotron text-center">
+		<a href="/spending" style="float: left;"><button id="back"><i class="fa fa-arrow-circle-left"></i> Go Back</button></a>
+		<br>
+		  <h1 class="w3-lobster">Month Wise Expense Manager</h1>
+		  <br>
+		  <form id="select-month" action="/spending/monthwiseanalysis" method="POST">
+			<div class="form-group">
+				<span style="font-size: 20px; color: black;">Month: </span>
+				<select style="height: 40px; margin-right: 40px;" id="month" name="month">
+					<option value="00">--select--</option>
+					<option value="01">January</option>
+					<option value="02">February</option>
+					<option value="03">March</option>
+					<option value="04">April</option>
+					<option value="05">May</option>
+					<option value="06">June</option>
+					<option value="07">July</option>
+					<option value="08">August</option>
+					<option value="09">September</option>
+					<option value="10">October</option>
+					<option value="11">November</option>
+					<option value="12">December</option>
+				</select>
+				<input type="submit" style="height: 40px;" name="submit" value="Check Expenditure" class="btn btn-primary">
+			</div>
+		  </form>
+	</div>
+
+	<% var count=0; %>	
+	<% spendings.forEach(function(spending) {  %>
+		<% count++;}); %>
+		<% if(count!=0){ %>
+	<hr>
+	<% if(spendings[0].month == '01') {%>
+    	<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for January</h4>
+	<% }else if(spendings[0].month == '02') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for February</h4>
+	<% }else if(spendings[0].month == '03') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for March</h4>
+	<% }else if(spendings[0].month == '04') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for April</h4>
+	<% }else if(spendings[0].month == '05') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for May</h4>
+	<% }else if(spendings[0].month == '06') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for June</h4>
+	<% }else if(spendings[0].month == '07') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for July</h4>
+	<% }else if(spendings[0].month == '08') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for August</h4>
+	<% }else if(spendings[0].month == '09') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for September</h4>
+	<% }else if(spendings[0].month == '10') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for October</h4>
+	<% }else if(spendings[0].month == '11') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for November</h4>
+	<% }else if(spendings[0].month == '12') {%>
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for December</h4> 
+	<% } %>
+	
+
+	<table id="expenses" class="table">
+      <tr>
+        <th>S.No</th>
+        <th>Purpose</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Options</th>
+      </tr>
+	  <% } %>
+	  <% var total=0; %>
+	  <% var d = new Date().getFullYear(); %>
+      <% spendings.forEach(function(spending) {  %>
+		<% if(spending.author.id.equals(currentUser._id)){ %>
+			<% if(spending.year == d ){ %>
+			<% total+=spending.amount; %>
+      	<tr>
+          <td></td>
+        	<td> <%= spending.name %> </td>
+        	<td> <%= spending.date %> </td>
+        	<td> Rs.&nbsp; <%= spending.amount %> </td>
+        	<td>
+          		<form method="POST" action="/deleteSpending">
+            		<input type="hidden" name="id" value="<%= spending._id %>">
+            		<button  class="btn btn-danger"> Delete </button>
+              </form>
+          </td>
+      	</tr>
+		<% }} %>
+      <% }); %>
+	</table>
+	<% spendings.forEach(function(spending) {  %>
+		<% count++;}); %>
+		<% if(count!=0){ %>
+			<hr>
+			<h4 class="w3-robot" style="font-size: 30px; text-align: right; color: white;">Total Expenditure: Rs.&nbsp;<%= total %></h4>
+			<hr>
+		<% } %>
+  </div>
+
+<%- include("../partials/footer") %>

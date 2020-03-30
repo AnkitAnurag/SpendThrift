@@ -18,7 +18,7 @@ var mydreamRoutes = require("./routes/mydream");
 var aboutusRoutes = require("./routes/aboutus");
 
 
-var url = process.env.DATABASEURL || "mongodb://localhost:27017/spend_thrift_v5"
+var url = process.env.DATABASEURL || "mongodb+srv://varun2000:varun2000@webdev-sdnkq.mongodb.net/spend-thrift?retryWrites=true&w=majority"
 
 mongoose.connect(url,{
 	useNewUrlParser: true,

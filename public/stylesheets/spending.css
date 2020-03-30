@@ -22,7 +22,9 @@ h2 {
 }
 
 #body1 {
-  background: #A0D468;
+  /* background: #A0D468; */
+  /* background: #7f8c8d; */
+  background:#586776;
 }
 
 table {
@@ -122,4 +124,33 @@ form span {
 .center {
   margin: auto;
   text-align: center;
+}
+
+.table {
+  counter-reset: serial-number; /* Set the serial number counter to 0 */
+}
+
+  .table td:first-child:before {
+      counter-increment: serial-number; /* Increment the serial number counter */
+      content: counter(serial-number); /* Display the counter */
+  }
+
+#back{
+  color: black;
+  width: 120px;
+  height: 35px;
+  border:1px solid black;
+  font-size: 20px;
+  border-radius: 2px;
+}
+
+@media (max-width:500px) {
+  #back{
+    color: black;
+    width: 110px;
+    height: 30px;
+    border:1px solid black;
+    font-size: 17px;
+    border-radius: 2px;
+  }
 }

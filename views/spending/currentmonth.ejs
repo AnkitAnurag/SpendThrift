@@ -1,0 +1,88 @@
+<%- include("../partials/headerspending") %>
+
+<div class="container w3-roboto">
+	<div class="jumbotron text-center">
+		<a href="/spending" style="float: left;"><button id="back"><i class="fa fa-arrow-circle-left"></i> Go Back</button></a>
+        <br>
+        <br>
+
+	<% var count=0; %>
+    <% var m = new Date().getMonth()+1; %>
+	
+	<% if(m == '1') {%>
+    	<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for January</h4>
+	<% }else if(m == '2') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for February</h4>
+	<% }else if(m == '3') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for March</h4>
+	<% }else if(m == '4') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for April</h4>
+	<% }else if(m == '5') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for May</h4>
+	<% }else if(m == '6') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for June</h4>
+	<% }else if(m == '7') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for July</h4>
+	<% }else if(m == '8') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for August</h4>
+	<% }else if(m == '9') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for September</h4>
+	<% }else if(m == '10') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for October</h4>
+	<% }else if(m == '11') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for November</h4>
+	<% }else if(m == '12') {%>
+		<h4 class="w3-lobster" style="font-size: 50px; text-align: center; color: black;">Expense(s) for December</h4> 
+	<% } %>
+	
+
+	<table id="expenses" class="table">
+      <tr>
+        <th>S.No</th>
+        <th>Purpose</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Options</th>
+      </tr>
+	  
+	  <% var total=0; %>
+      <% var d = new Date().getFullYear(); %>
+      
+      <% spendings.forEach(function(spending) {  %>
+		<% if(spending.author.id.equals(currentUser._id)){ %>
+            <% if(spending.year == d ){ %>
+                <% var temp = spending.month.charAt(1); %>
+                <% if(temp == m){ %>
+			<% total+=spending.amount; %>
+      	<tr>
+          <td></td>
+        	<td> <%= spending.name %> </td>
+        	<td> <%= spending.date %> </td>
+        	<td> Rs.&nbsp; <%= spending.amount %> </td>
+        	<td>
+          		<form method="POST" action="/deleteSpending">
+            		<input type="hidden" name="id" value="<%= spending._id %>">
+            		<button  class="btn btn-danger"> Delete </button>
+              </form>
+          </td>
+      	</tr>
+		<% }}} %>
+      <% }); %>
+	</table>
+	<% spendings.forEach(function(spending) {  %>
+            <% if(spending.year == d ){ %>
+                <% var temp = spending.month.charAt(1); %>
+                <% if(temp == m){ %>
+                    <% count++; }}}); %>
+                    <% if(count!=0){ %>
+			    <hr>
+			    <h4 class="w3-robot" style="font-size: 30px; text-align: right; color: black;">Total Expenditure: Rs.&nbsp;<%= total %></h4>
+    			<hr>
+        <% } else{ %>
+        <br>
+        <h4 class="w3-roboto" style="font-size: 20px;">You haven't spent anything this month yet!!</h4>
+        <% } %>
+    </div>
+  </div>
+
+<%- include("../partials/footer") %>

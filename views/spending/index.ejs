@@ -1,79 +1,14 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  	<title>SpendThrift</title>
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  	<link href="https://fonts.googleapis.com/css?family=Lobster|Roboto&display=swap" rel="stylesheet">
-  	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-  	<link rel="stylesheet" href="/stylesheets/main.css">
-	<link rel="stylesheet" href="/stylesheets/spending.css">
-  	<script src="https://use.fontawesome.com/5decefa9b5.js"></script>
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
-<body background="https://images.unsplash.com/photo-1539009139598-75df7c89734d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1929&q=80">
-
-  <nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand w3-lobster" href="/"><span class="glyphicon glyphicon-king" aria-hidden="true"></span>
-          SpendThrift </a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-right w3-roboto">
-				<li><a href="/home">Home <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
-				<li><a href="/aboutus">About <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></a></li>
-				<% if(currentUser){ %>
-					<li><a href="#">Signed In As <%= currentUser.username %> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> </a></li>
-					<li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
-				<% } else { %>
-					<li><a href="/login">Login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>
-					<li><a href="/signup">Sign Up <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
-				<% } %>
-			</ul>
-      </div>
-    </div>
-  </nav>
-	
-	<div class="container">
-		<% if(error && error.length > 0){ %>
-		<div class="alert alert-danger" role="alert">
-			<%= error %>
-		</div>
-		<% } %>
-		<% if(success && success.length > 0){ %>
-		<div class="alert alert-success" role="alert">
-			<%= success %>
-		</div>
-		<% } %>
-	</div>
+<%- include("../partials/headerspending") %>
 
 
   <!-- Main file Below -->
 
-  <div class="container w3-round-large" id="body1" style="width: 75%; margin: 20px auto;">
+  <div class="container w3-round-large" id="body1" style="width: 80%; margin: 20px auto;">
     <h1 class="w3-lobster">Daily Expense Manager </h1>
     <h2 class="w3-roboto"> Add a new item:</h2>
 
     <div id="form-box" method="POST">
       <form id="add-expense" action="/spending" method="POST">
-        <!-- <div class="form-group">
-          <span>Type:</span>
-          <select name="method">
-            <option value="card">Card</option>
-            <option value="cash">Cash</option>
-            <option value="other">Other</option>
-          </select>
-        </div> -->
 
         <div class="form-group">
           <span>Name:</span> <input type="text" name="name" placeholder="What did you spend on?">
@@ -87,25 +22,37 @@
           <span>Amount:</span> <input type="number" name="amount" placeholder="How much?">
         </div>
 		  <div class="form-group w3-center w3-bar">
-			  <input type="submit" name="submit" value="Add Expense" class="btn btn-primary">
+			  <input type="submit" style="height: 40px;" name="submit" value="Add Expense" class="btn btn-primary">
 		  </div>
       </form>
     </div>
 	  
     <hr />
 
+    <div class="container" id="button1" style="width: auto;" role="group" aria-label="Basic example">
+      <a href="/spending/monthwiseanalysis"><button type="button" style="width:290px; height: 45px; margin-right: 30px;" class="btn btn-warning">Month Wise Expense Manager</button></a>
+      <a href="#"><button type="button" style="width:290px; height: 45px; margin-right: 30px;" class="btn btn-warning">Today's Expense(s)</button></a>
+      <a href="/spending/currentmonthanalysis"><button type="button" style="width:290px; height: 45px; margin-right: 30px;" class="btn btn-warning">This Month's Expense(s)</button></a>
+      <a href="/spending/daywiseanalysis"><button type="button" style="width:290px; height: 45px;" class="btn btn-warning">Budget v/s Expense(s)</button></a>
+    </div>
+
+    <hr>
+
+    <h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Recently Added Expenses</h4>
+
     <table id="expenses" class="table">
       <tr>
-        <!-- <th>Method</th> -->
+        <th>S.No</th>
         <th>Purpose</th>
         <th>Date</th>
         <th>Amount</th>
         <th>Options</th>
       </tr>
-      <% spendings.forEach(function(spending) {  %>
-		<% if(spending.author.id.equals(currentUser._id)){ %>
+      
+      <% spendings.reverse().forEach(function(spending) {  %>
+    <% if(spending.author.id.equals(currentUser._id)){ %>
       	<tr>
-			
+          <td></td>
         	<td> <%= spending.name %> </td>
         	<td> <%= spending.date %> </td>
         	<td> Rs.&nbsp; <%= spending.amount %> </td>
@@ -113,7 +60,8 @@
           		<form method="POST" action="/deleteSpending">
             		<input type="hidden" name="id" value="<%= spending._id %>">
             		<button  class="btn btn-danger"> Delete </button>
-          		</form>
+              </form>
+          </td>
       	</tr>
 		<% } %>
       <% }); %>

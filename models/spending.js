@@ -3,7 +3,10 @@ var mongoose = require("mongoose");
 var spendingSchema = new mongoose.Schema({
 	name: String,
 	date: String,
-   	amount: String,
+	day: String,
+	month: String,
+	year: String,
+   	amount: Number,
 	author: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
