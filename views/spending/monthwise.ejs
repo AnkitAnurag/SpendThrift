@@ -57,7 +57,7 @@
 	<% }else if(spendings[0].month == '11') {%>
 		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for November</h4>
 	<% }else if(spendings[0].month == '12') {%>
-		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for December</h4> 
+		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for December</h4>
 	<% } %>
 	
 
@@ -70,6 +70,7 @@
         <th>Options</th>
       </tr>
 	  <% } %>
+	  
 	  <% var total=0; %>
 	  <% var d = new Date().getFullYear(); %>
       <% spendings.forEach(function(spending) {  %>
