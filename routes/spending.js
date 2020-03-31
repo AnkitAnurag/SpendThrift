@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Spending = require("../models/spending");
 var User = require("../models/user");
+var Budget = require("../models/budget");
 var middleware = require("../middleware");
 
 router.get("/spending", middleware.isLoggedIn, function (req, res) {
@@ -85,6 +86,44 @@ router.get('/spending/currentmonthanalysis',function(req,res){
 	});
 });
 
+router.get('/spending/budgetvexpense',function(req,res){
+	Spending.find({}, function (err, allSpendings) {
+		Budget.find({}, function (err, budget){
+		if (err) {
+			console.log(err);
+		}
+		else {
+			res.render("spending/budgetvexpense", { spendings: allSpendings, budgets: budget });
+		}
+	})});
+});
+
+router.post("/spending/budgetvexpense", function (req, res) {
+	var budget = req.body.budget;
+	var author = {
+		id: req.user._id,
+		username: req.user.username
+	};
+	var budget = { budget:budget, author:author }
+	Budget.create(budget, function (err, newlyCreated) {
+		if (err) {
+			res.redirect("/spending/budgetvexpense");
+		} else {
+			res.redirect("/spending/budgetvexpense");
+		}
+	});
+});
+
+router.put("/spending/budgetvexpense/:budget_id", function (req, res) {
+	var budget = req.body.budget;
+	Budget.findByIdAndUpdate(req.params.budget_id, { budget:budget}, function(err, updatedBudget){
+		if(err){
+			res.redirect("/spending/budgetvexpense");
+		} else {
+			res.redirect("/spending/budgetvexpense");
+		}
+	});
+});
 
 
 //Delete Spending

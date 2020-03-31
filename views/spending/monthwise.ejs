@@ -31,8 +31,10 @@
 
 	<% var count=0; %>	
 	<% spendings.forEach(function(spending) {  %>
-		<% count++;}); %>
-		<% if(count!=0){ %>
+		<% if(spending.author.id.equals(currentUser._id)){ %>
+		<% count++;}}); %>
+
+	<% if(count>0){ %>
 	<hr>
 	<% if(spendings[0].month == '01') {%>
     	<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for January</h4>
@@ -59,7 +61,6 @@
 	<% }else if(spendings[0].month == '12') {%>
 		<h4 class="w3-lobster" style="font-size: 40px; text-align: center; color: white;">Monthly Expenses for December</h4>
 	<% } %>
-	
 
 	<table id="expenses" class="table">
       <tr>
@@ -68,8 +69,9 @@
         <th>Date</th>
         <th>Amount</th>
         <th>Options</th>
-      </tr>
-	  <% } %>
+	  </tr>
+	  
+	<% } %>
 	  
 	  <% var total=0; %>
 	  <% var d = new Date().getFullYear(); %>
@@ -92,8 +94,10 @@
 		<% }} %>
       <% }); %>
 	</table>
+	<% var count=0; %>
 	<% spendings.forEach(function(spending) {  %>
-		<% count++;}); %>
+		<% if(spending.author.id.equals(currentUser._id)){ %>
+		<% count++;}}); %>
 		<% if(count!=0){ %>
 			<hr>
 			<h4 class="w3-robot" style="font-size: 30px; text-align: right; color: white;">Total Expenditure: Rs.&nbsp;<%= total %></h4>
