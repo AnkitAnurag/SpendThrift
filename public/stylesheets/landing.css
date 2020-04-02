@@ -84,3 +84,9 @@ body {
 .no-cssanimations .slideshow li {
 	opacity: 1;
 }
+
+.alert{
+  width: 90%;
+  margin: 15px auto;
+  opacity: 1;
+}

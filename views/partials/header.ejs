@@ -30,7 +30,7 @@
 				<li><a href="/home">Home <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
 				<li><a href="/aboutus">About <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></a></li>
 				<% if(currentUser){ %>
-					<li><a href="#">Signed In As <%= currentUser.username %> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> </a></li>
+					<li><a href="#">Signed In As <%= currentUser.name %> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> </a></li>
 					<li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
 				<% } else { %>
 					<li><a href="/login">Login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>
@@ -40,16 +40,3 @@
 		</div>
 	</div>
 </nav>
-		
-<div class="container">
-	<% if(error && error.length > 0){ %>
-	<div class="alert alert-danger" role="alert">
-		<%= error %>
-	</div>
-	<% } %>
-	<% if(success && success.length > 0){ %>
-	<div class="alert alert-success" role="alert">
-		<%= success %>
-	</div>
-	<% } %>
-</div>
