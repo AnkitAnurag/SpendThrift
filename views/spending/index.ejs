@@ -12,15 +12,15 @@
       <form id="add-expense" action="/spending" method="POST">
 
         <div class="form-group">
-          <span>Name:</span> <input type="text" name="name" placeholder="What did you spend on?">
+          <span>Name:</span> <input type="text" name="name" placeholder="What did you spend on?" required>
         </div>
 
         <div class="form-group">
-          <span>Date:</span> <input type="date" name="date">
+          <span>Date:</span> <input type="date" name="date" required>
         </div>
 
         <div class="form-group">
-          <span>Amount:</span> <input type="number" name="amount" placeholder="How much?">
+          <span>Amount:</span> <input type="number" name="amount" placeholder="How much?" required>
         </div>
 		  <div class="form-group w3-center w3-bar">
 			  <input type="submit" style="height: 40px;" name="submit" value="Add Expense" class="btn btn-primary">

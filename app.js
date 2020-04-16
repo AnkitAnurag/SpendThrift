@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
@@ -21,7 +23,7 @@ var mydreamRoutes = require("./routes/mydream");
 var aboutusRoutes = require("./routes/aboutus");
 
 
-var url = process.env.DATABASEURL || "mongodb+srv://varun2000:varun2000@webdev-sdnkq.mongodb.net/spend-thrift?retryWrites=true&w=majority"
+var url = process.env.DATABASEURL
 
 mongoose.connect(url,{
 	useNewUrlParser: true,
@@ -43,6 +45,13 @@ app.use(
 	  saveUninitialized: true
 	})
   );
+
+// Back button cached sessions destroy
+app.use(function(req, res, next) {
+	res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+	next();
+});
+  
 
 //PASSPORT CONFIGURATION
 
@@ -70,7 +79,6 @@ app.use(function(req, res, next){
 	res.locals.success_msg = req.flash('success_msg');
   	res.locals.error_msg = req.flash('error_msg');
 	res.locals.error = req.flash("error");
-	// res.locals.success = req.flash("success");
 	next();
 });
 
