@@ -13,7 +13,7 @@ var spendingSchema = new mongoose.Schema({
 			ref: "User"
 		},
 		username: String
-	},
+	}
 });
  
 module.exports = mongoose.model("Spending", spendingSchema);

@@ -14,6 +14,7 @@ var session = require('express-session');
 var Mydream = require("./models/mydream");
 var Spending = require("./models/spending");
 var User = require("./models/user");
+var Todo = require("./models/todo");
 
 
 var indexRoutes = require("./routes/index");
@@ -21,6 +22,7 @@ var homeRoutes = require("./routes/home");
 var spendingRoutes = require("./routes/spending");
 var mydreamRoutes = require("./routes/mydream");
 var aboutusRoutes = require("./routes/aboutus");
+var TodoRoutes = require("./routes/todo");
 
 
 var url = process.env.DATABASEURL
@@ -88,6 +90,7 @@ app.use(homeRoutes);
 app.use(spendingRoutes);
 app.use(mydreamRoutes);
 app.use(aboutusRoutes);
+app.use(TodoRoutes);
 
 
 app.listen(process.env.PORT || 3000, () => {

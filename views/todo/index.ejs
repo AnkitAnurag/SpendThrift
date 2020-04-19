@@ -1,0 +1,130 @@
+<%- include("../partials/headertodo") %>
+<%- include("../partials/messages") %>
+
+        <div class="container">
+            <div class="row">
+                <div class="jumbotron" style="background-color: #586776; color: white;">
+                    <div class="text-center">
+                        <h1 class="w3-lobster" style="margin-bottom: 35px; ">ToDo List</h1>
+                        <div class="container">
+                            <form class="form-inline" action="/todolist" method="POST">
+                                <div class="form-group" style="margin-right: 35px;">
+                                  <label style="font-size: large;">Todo Name:&nbsp;&nbsp;</label>
+                                  <input type="text" class="form-control" name="item" placeholder="Eg. Buy Groceries" required>
+                                </div>
+                                <div class="form-group" style="margin-right: 35px;">
+                                    <label style="font-size: large;">Priority:&nbsp;&nbsp;</label>
+                                    <select class="form-control" name="priority">
+                                      <option value="0">Normal</option>
+                                      <option value="1">High</option>
+                                    </select>
+                                </div>
+                                <button style="font-size: large;" type="submit" class="btn btn-primary">Add Todo Item</button>
+                            </form>
+                        </div>
+                        <hr>
+                        <table id="todos" class="table" style="background-color: white; color: black;">
+                            <tr>
+                              <th class="text-center">Status</th>
+                              <th class="text-center">Todo</th>
+                              <th class="text-center">Priority</th>
+                              <th class="text-center" colspan="2">Options</th>
+                            </tr>
+                            <% todos.forEach(function(todo) { %>
+                                <% if(todo.author.id.equals(currentUser._id)){ %>
+                                <% if(todo.priority == 1) { %>
+                                <tr>
+                                    <td>
+                                    <% if(todo.completed == 1) { %>
+                                        <input type="checkbox" style="margin-top: 10px;" checked disabled>
+                                    <% } else { %>
+                                        <input type="checkbox" style="margin-top: 10px;" disabled>
+                                    <% } %>
+                                    </td>
+                                    <td>
+                                        <% if(todo.completed == 1) { %>
+                                            <span style="text-decoration: line-through; font-size: 20px;">&nbsp; &nbsp;<%= todo.item %>&nbsp; &nbsp;</span>
+                                        <% } else { %>
+                                            <span style="font-size: 20px;">&nbsp; &nbsp;<%= todo.item %>&nbsp; &nbsp;</span>
+                                        <% } %>   
+                                    </td>
+                                    <td><span class="badge" style="font-size:15px; background-color: #B83227; margin-top: 5px;">High</span></td>
+                                    <td><form action="/markTodo" method="POST">
+                                            <input type="hidden" name="id" value="<%= todo._id %>">
+                                            <input type="hidden" name="completed" value="<%= todo.completed %>">
+                                            <% if(todo.completed == 0) { %>
+                                                <button class="btn btn-light btn-sm" data-toggle="tooltip" data-placement="right" title="Mark As Completed">
+                                                    <svg class="bi bi-check-circle" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1013.5 8a.5.5 0 011 0 6.5 6.5 0 11-3.25-5.63.5.5 0 11-.5.865A5.472 5.472 0 008 2.5z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                </button>
+                                            <% } else { %>
+                                                <button class="btn btn-light btn-sm" style="color: #01CBC6;" data-toggle="tooltip" data-placement="right" title="Undo">
+                                                    <svg class="bi bi-check-circle" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1013.5 8a.5.5 0 011 0 6.5 6.5 0 11-3.25-5.63.5.5 0 11-.5.865A5.472 5.472 0 008 2.5z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                </button>
+                                            <% } %>
+                                    </form></td>
+                                    <td><form action="/deleteTodo" method="POST">
+                                        <input type="hidden" name="id" value="<%= todo._id %>">
+                                        <button class="btn btn-danger btn-md" data-toggle="tooltip" data-placement="right" title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </form></td>
+                                </tr>
+                            <% }}}); %>
+                            <% todos.forEach(function(todo) { %>
+                                <% if(todo.author.id.equals(currentUser._id)){ %>
+                                <% if(todo.priority == 0) { %>
+                                <tr>
+                                    <td>
+                                    <% if(todo.completed == 1) { %>
+                                        <input type="checkbox" checked disabled>
+                                    <% } else { %>
+                                        <input type="checkbox" disabled>
+                                    <% } %>
+                                    </td>
+                                    <td>
+                                        <% if(todo.completed == 1) { %>
+                                            <span style="text-decoration: line-through; font-size: 20px;">&nbsp; &nbsp;<%= todo.item %>&nbsp; &nbsp;</span>
+                                        <% } else { %>
+                                            <span style="font-size: 20px;">&nbsp; &nbsp;<%= todo.item %>&nbsp; &nbsp;</span>
+                                        <% } %>   
+                                    </td>
+                                    <td><span class="badge" style="font-size:15px; background-color: #FAD02E; margin-top: 5px;">Normal</span></td>
+                                    <td><form action="/markTodo" method="POST">
+                                            <input type="hidden" name="id" value="<%= todo._id %>">
+                                            <input type="hidden" name="completed" value="<%= todo.completed %>">
+                                            <% if(todo.completed == 0) { %>
+                                                <button class="btn btn-light btn-sm" data-toggle="tooltip" data-placement="right" title="Mark As Completed">
+                                                    <svg class="bi bi-check-circle" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1013.5 8a.5.5 0 011 0 6.5 6.5 0 11-3.25-5.63.5.5 0 11-.5.865A5.472 5.472 0 008 2.5z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                </button>
+                                            <% } else { %>
+                                                <button class="btn btn-light btn-sm" style="color: #01CBC6;" data-toggle="tooltip" data-placement="right" title="Undo">
+                                                    <svg class="bi bi-check-circle" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1013.5 8a.5.5 0 011 0 6.5 6.5 0 11-3.25-5.63.5.5 0 11-.5.865A5.472 5.472 0 008 2.5z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                </button>
+                                            <% } %>
+                                    </form></td>
+                                    <td><form action="/deleteTodo" method="POST">
+                                        <input type="hidden" name="id" value="<%= todo._id %>">
+                                        <button class="btn btn-danger btn-md" data-toggle="tooltip" data-placement="right" title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </form></td>
+                                </tr>
+                            <% }}}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<%- include("../partials/footer") %>
